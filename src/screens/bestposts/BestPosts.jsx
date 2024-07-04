@@ -52,7 +52,7 @@ const BestPosts = () => {
       estimatedTime: '30 mins',
     },
     {
-      image: '/image2.jpg',
+      image: '/roti.jpeg',
       name: 'Food B',
       quantity: '3 kg',
       estimatedTime: '45 mins',
