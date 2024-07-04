@@ -9,7 +9,7 @@ const PostDetails = () => {
     // Fetch the post details from the backend
     const fetchPostDetails = async () => {
       try {
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}${import.meta.env.VITE_POSTDETAILS}`,{id:5}); // Replace with your actual backend endpoint
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}postDetails/`,{id:5}); // Replace with your actual backend endpoint
         const data = await response.data;
         setPostDetails(data);
       } catch (error) {
