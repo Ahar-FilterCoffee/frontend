@@ -35,6 +35,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/partner' element={<HomeDeliveryPartner/>} />
         <Route path='/postaccept' element={<PostAccept/>} />
         <Route path='/tracking' element={<DeliveryTracking/>}/>
+    
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
