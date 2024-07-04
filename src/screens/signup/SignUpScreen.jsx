@@ -46,6 +46,14 @@ const SignUpScreen = () => {
         // Add your sign-up logic here (e.g., API call)
         const organizationImageUrl = await cloudinaryUpload(imgFile);
         // Navigate to the appropriate home page based on user type
+        const payload = {
+            username:userName,
+            password:password,
+            orgName: newOrganization,
+            pic: organizationImageUrl,
+            location: location,
+            userType: userType
+        }
         try {
             setIsLoading(true)
             const response = await axios.post(`${import.meta.env.VITE_BASE_URL}${import.meta.env.VITE_SIGNUP}`, payload);
@@ -102,7 +110,6 @@ const SignUpScreen = () => {
                         <input
                             id="uploadImage"
                             type="file"
-                            accept="image/*"
                             style={{ display: "none" }}
                             onChange={handleFileUpload}
                         />

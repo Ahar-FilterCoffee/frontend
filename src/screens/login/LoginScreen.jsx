@@ -17,6 +17,7 @@ const LoginScreen = () => {
             setIsLoading(true)
             const response = await axios.post(`${import.meta.env.VITE_BASE_URL}${import.meta.env.VITE_LOGIN}`, { username: userEmail, password: password })
             setIsLoading(false)
+            console.log(response.data)
             if (response.data.message == "success") {
                 toast.success("Successfully logged in...")
                 setUsername(response.data.username)
