@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { onboardImgUrl } from '../../utils/constants';
-import { Select, SelectItem, Input, Button, RadioGroup, Radio, user } from '@nextui-org/react';
+import { Input, Button, RadioGroup, Radio } from '@nextui-org/react';
 import { useNavigate } from 'react-router';
 import cloudinaryUpload from '../../utils/cloudinary';
 import { setOrgName, setUserId } from '../../utils/handleCookie';
@@ -9,16 +9,16 @@ import toast from 'react-hot-toast';
 
 const SignUpScreen = () => {
     const navigate = useNavigate();
-    const [selectedOrganization, setSelectedOrganization] = useState('');
     const [newOrganization, setNewOrganization] = useState('');
     const [isNewOrganization, setIsNewOrganization] = useState(true);
-    const [imgFile, setImgFile] = useState(null)
+    const [imgFile, setImgFile] = useState(null);
     const [location, setLocation] = useState('');
     const [userType, setUserType] = useState('');
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [organizationImage, setOrganizationImage] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [numPeople, setNumPeople] = useState('');
 
     // const handleIsNewOrganization = () => {
     //     if (selectedOrganization === "new_organization") {
@@ -34,7 +34,7 @@ const SignUpScreen = () => {
 
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
-        setImgFile(file)
+        setImgFile(file);
         if (file) {
             const imageUrl = URL.createObjectURL(file);
             setOrganizationImage(imageUrl);
@@ -42,49 +42,44 @@ const SignUpScreen = () => {
     };
 
     const handleSubmit = async () => {
-        
-        // Add your sign-up logic here (e.g., API call)
+
+         // Add your sign-up logic here (e.g., API call)
         const organizationImageUrl = await cloudinaryUpload(imgFile);
         // Navigate to the appropriate home page based on user type
         const payload = {
-            username:userName,
-            password:password,
+            username: userName,
+            password: password,
             orgName: newOrganization,
             pic: organizationImageUrl,
             location: location,
-            userType: userType
-        }
+            userType: userType,
+            numPeople: userType === 'Consumers' ? numPeople : null,
+        };
         try {
-            setIsLoading(true)
+            setIsLoading(true);
             const response = await axios.post(`${import.meta.env.VITE_BASE_URL}${import.meta.env.VITE_SIGNUP}`, payload);
-            //console.log('Signup successful:', response.data);
-            setIsLoading(true)
-            if (response.data.message == "success") {
+            if (response.data.message === "success") {
                 // Navigate to the appropriate home page based on user type
-                setUserName(userName)
-                setOrgName(newOrganization),
-                setOrganizationImage(organizationImageUrl)
-                setLocation(location)
-                setUserType(userType)
+                setUserName(userName);
+                setOrgName(newOrganization);
+                setOrganizationImage(organizationImageUrl);
+                setLocation(location);
+                setUserType(userType);
                 setUserId(response.data.id);
-                toast.success("Successfully created account")
+                toast.success("Successfully created account");
                 if (userType === 'Producers') {
                     navigate('/producer');
-                    location.reload()
                 } else if (userType === 'Consumers') {
                     navigate('/consumer');
-                    location.reload()
                 } else {
-                    navigate('/')
-                    location.reload()
+                    navigate('/');
                 }
+                location.reload();
             }
         } catch (error) {
-            toast.error("Error creating account")
+            toast.error("Error creating account");
             console.error('Error during signup:', error);
         }
-        
-
     };
 
     return (
@@ -99,7 +94,7 @@ const SignUpScreen = () => {
             <div className='flex-1 flex flex-col items-center justify-center overflow-y-auto'>
                 <h1 className="font-semibold text-xl sm:text-2xl text-primary-200 cursor-pointer">Ahar</h1>
                 <div className='w-3/4 my-10'>
-                    {/* <Select value={selectedOrganization} onSelectionChange={(e) => setSelectedOrganization(e.anchorKey)} label="Your Organization" size='sm' variant='faded' className='my-2'>
+                  {/* <Select value={selectedOrganization} onSelectionChange={(e) => setSelectedOrganization(e.anchorKey)} label="Your Organization" size='sm' variant='faded' className='my-2'>
                         <SelectItem>A</SelectItem>
                         <SelectItem>BAC</SelectItem>
                         <SelectItem>XYZ</SelectItem>
@@ -132,6 +127,18 @@ const SignUpScreen = () => {
                         <Radio value="Consumers">Food Consumers</Radio>
                         <Radio value="Delivery Partner">Delivery Partner</Radio>
                     </RadioGroup>
+
+                    {userType === 'Consumers' && (
+                        <Input
+                            value={numPeople}
+                            onValueChange={setNumPeople}
+                            label="No. of people in your organization?"
+                            size='sm'
+                            variant='faded'
+                            className='my-3'
+                        />
+                    )}
+
                     <Input value={userName} onValueChange={setUserName} label="Username" size='sm' variant='faded' className='my-3' />
                     <Input value={password} onValueChange={setPassword} label="Password" type='password' size='sm' variant='faded' className='my-3' />
                     <Button isLoading={isLoading} onClick={handleSubmit} className='w-full bg-primary-200 text-white font-semibold mt-10'>Create Account</Button>
@@ -139,7 +146,7 @@ const SignUpScreen = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default SignUpScreen;
