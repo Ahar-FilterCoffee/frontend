@@ -4,7 +4,7 @@ import { Button, Input } from '@nextui-org/react';
 import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import { setLocation, setOrgName, setPic, setUserType, setUsername } from '../../utils/handleCookie';
+import { setLocation, setOrgName, setPic, setUserId, setUserType, setUsername } from '../../utils/handleCookie';
 
 const LoginScreen = () => {
     const navigate = useNavigate()
@@ -21,6 +21,7 @@ const LoginScreen = () => {
             if (response.data.message == "success") {
                 toast.success("Successfully logged in...")
                 setUsername(response.data.username)
+                setUserId(response.data.id)
                 setUserType(response.data.userType)
                 setLocation(response.data.location)
                 setPic(response.data.pic)
