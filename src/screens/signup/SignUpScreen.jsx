@@ -1,42 +1,49 @@
-import React, { useEffect, useState } from 'react'
-import { onboardImgUrl } from '../../utils/constants'
-import { Select, SelectItem, Input, Button, RadioGroup, Radio } from '@nextui-org/react'
-import { useNavigate } from 'react-router'
-
+import React, { useEffect, useState } from 'react';
+import { onboardImgUrl } from '../../utils/constants';
+import { Select, SelectItem, Input, Button, RadioGroup, Radio } from '@nextui-org/react';
+import { useNavigate } from 'react-router';
 
 const SignUpScreen = () => {
     const navigate = useNavigate();
     const [selectedOrganization, setSelectedOrganization] = useState('');
     const [newOrganization, setNewOrganization] = useState('');
-    const [isNewOrganization, setIsNewOrganization] = useState(false)
+    const [isNewOrganization, setIsNewOrganization] = useState(false);
     const [location, setLocation] = useState('');
     const [userType, setUserType] = useState('');
-    const [userName, setUserName] = useState('')
-    const [password, setPassword] = useState('')
-    const [organizationImage, setOrganizationImage] = useState(null); // State to store organization image
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+    const [organizationImage, setOrganizationImage] = useState(null);
 
     const handleIsNewOrganization = () => {
         if (selectedOrganization === "new_organization") {
-            setIsNewOrganization(true)
+            setIsNewOrganization(true);
         } else {
-            setIsNewOrganization(false)
+            setIsNewOrganization(false);
         }
-    }
+    };
 
     useEffect(() => {
-        handleIsNewOrganization()
-    }, [selectedOrganization]); // Add selectedOrganization to dependency array
+        handleIsNewOrganization();
+    }, [selectedOrganization]);
 
-    // Function to handle file upload
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
         if (file) {
-            // Assuming you have a function to handle image uploads and return URL
-            // Replace the below line with actual logic to upload and get URL
             const imageUrl = URL.createObjectURL(file);
             setOrganizationImage(imageUrl);
         }
-    }
+    };
+
+    const handleSubmit = () => {
+        // Add your sign-up logic here (e.g., API call)
+
+        // Navigate to the appropriate home page based on user type
+        if (userType === 'food_producers') {
+            navigate('/producer');
+        } else if (userType === 'food_consumers') {
+            navigate('/consumer');
+        }
+    };
 
     return (
         <div className="h-screen bg-primary-100 p-5 flex">
@@ -76,7 +83,7 @@ const SignUpScreen = () => {
                         </div>
                     }
                     <RadioGroup
-                        label="Who are you ?"
+                        label="Who are you?"
                         value={userType}
                         onValueChange={setUserType}
                         className='my-2'
@@ -87,8 +94,8 @@ const SignUpScreen = () => {
                     </RadioGroup>
                     <Input value={userName} onValueChange={setUserName} label="Username" size='sm' variant='faded' className='my-3' />
                     <Input value={password} onValueChange={setPassword} label="Password" type='password' size='sm' variant='faded' className='my-3' />
-                    <Button className='w-full bg-primary-200 text-white font-semibold mt-10'>Create Account</Button>
-                    <p onClick={() => navigate('/login')} className='cursor-pointer text-center mt-5 text-sm'>Already have an account ? <span className='font-semibold text-primary-200'>Login</span></p>
+                    <Button onClick={handleSubmit} className='w-full bg-primary-200 text-white font-semibold mt-10'>Create Account</Button>
+                    <p onClick={() => navigate('/login')} className='cursor-pointer text-center mt-5 text-sm'>Already have an account? <span className='font-semibold text-primary-200'>Login</span></p>
                 </div>
             </div>
         </div>
