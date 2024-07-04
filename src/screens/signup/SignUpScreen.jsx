@@ -70,10 +70,13 @@ const SignUpScreen = () => {
                 toast.success("Successfully created account")
                 if (userType === 'Producers') {
                     navigate('/producer');
+                    location.reload()
                 } else if (userType === 'Consumers') {
                     navigate('/consumer');
+                    location.reload()
                 } else {
                     navigate('/')
+                    location.reload()
                 }
             }
         } catch (error) {
