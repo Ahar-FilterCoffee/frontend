@@ -8,11 +8,11 @@ function OnboardScreen() {
     const navigate = useNavigate();
     return (
         <div className="min-h-screen bg-primary-100 p-5 flex">
-            <div className="flex-1 hidden md:block">
+            <div className="flex-1 hidden items-center  md:flex">
                 <img
                     alt="Starvation"
                     src={onboardImgUrl}
-                    className="h-full w-full object-cover rounded-lg"
+                    className="h-full max-h-96   w-full object-cover rounded-lg"
                 />
             </div>
             <div className="flex-1 flex flex-col items-center justify-center">
@@ -30,7 +30,10 @@ function OnboardScreen() {
                 <div className="w-3/4 mb-10">
                     <Select label="Select Language" className="w-full " variant='faded'>
                         <SelectItem value="english">English</SelectItem>
-                        <SelectItem value="spanish">Spanish</SelectItem>
+                        <SelectItem value="spanish">Tamil</SelectItem>
+                        <SelectItem value="spanish">Hindi</SelectItem>
+                        <SelectItem value="spanish">Kannada</SelectItem>
+                        <SelectItem value="spanish">Telugu</SelectItem>
                     </Select>
                 </div>
                 <div className='w-3/4 font-semibold'>

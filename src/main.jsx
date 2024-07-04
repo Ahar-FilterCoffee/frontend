@@ -14,8 +14,10 @@ import HomeFoodProducer from './screens/foodproducer/HomeFoodProducer.jsx'
 import HomeDeliveryPartner from './screens/deliverypartner/HomeDeliveryPartner.jsx'
 import PostAccept from './screens/postaccept/PostAccept.jsx'
 import DeliveryTracking from './screens/deliverytracking/DeliveryTracking.jsx'
+import { Toaster } from 'react-hot-toast'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <Toaster/>
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<App />} />
