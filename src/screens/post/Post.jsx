@@ -32,8 +32,8 @@ const Post = () => {
   };
 
   return (
-    <div className="min-h-screen bg-primary-100 p-6 flex">
-      <div className="w-1/3 p-4">
+    <div className="min-h-screen bg-primary-100 p-6 flex flex-col md:flex-row">
+      <div className="w-full md:w-1/3 p-4">
         <h2 className="text-2xl mb-4">Pictures</h2>
         <div className="grid grid-cols-2 gap-4">
           {pictures.map((pic, index) => (
@@ -49,7 +49,7 @@ const Post = () => {
         <Button className="mt-4 bg-primary-200" onClick={() => document.querySelector('input[type="file"]').click()}>Upload</Button>
       </div>
 
-      <div className="w-2/3 p-4">
+      <div className="w-full md:w-2/3 p-4">
         <h2 className="text-2xl mb-4">Enter Food Details</h2>
         <div className="mb-4">
           <label className="block text-lg mb-2">Name of food:</label>
