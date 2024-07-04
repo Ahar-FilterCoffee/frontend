@@ -1,13 +1,13 @@
-import { Input } from "@nextui-org/react"
+
 
 
 function App() {
- 
+  
 
   return (
-    <div className='font-sora'>
-     <Input/>
-    </div>
+    <>
+      <div className="w-full h-16 bg-primary-100" >Hello</div>
+    </>
   )
 }
 
