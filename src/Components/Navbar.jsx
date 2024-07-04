@@ -26,7 +26,7 @@ const Navbar = () => {
           {
             getUserType() == "Consumers" && <li className="hover:text-blue-700 flex items-center space-x-2 transition-colors duration-200">
               <FiCalendar />
-              <a href="/bestpost">Post</a>
+              <a href="/bestposts">Post</a>
             </li>
           }
           {
