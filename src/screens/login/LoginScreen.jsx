@@ -26,6 +26,7 @@ const LoginScreen = () => {
                 setPic(response.data.pic)
                 setOrgName(response.data.orgName)
                 navigate('/')
+                location.reload()
             }
         } catch (e) {
             toast.error("Error logging in...")
