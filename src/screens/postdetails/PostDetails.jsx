@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card } from '@nextui-org/react';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 const PostDetails = () => {
   const [postDetails, setPostDetails] = useState(null);
+  const location = useLocation()
 
   useEffect(() => {
     // Fetch the post details from the backend
     const fetchPostDetails = async () => {
       try {
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}postDetails/`,{id:5}); // Replace with your actual backend endpoint
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}postDetails/`,{id:location.state.id}); // Replace with your actual backend endpoint
         const data = await response.data;
         setPostDetails(data);
       } catch (error) {
