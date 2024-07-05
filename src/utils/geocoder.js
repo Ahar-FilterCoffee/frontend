@@ -1,7 +1,7 @@
 export async function getCoordinates(address) {
     const accessToken = import.meta.env.VITE_MAPBOX_API_KEY; // Replace with your Mapbox access token
     const encodedAddress = encodeURIComponent(address);
-    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodedAddress}.json?access_token=${accessToken}`;
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodedAddress}.json?access_token=pk.eyJ1Ijoicm9uYWstY2hvcmRpYSIsImEiOiJjbHV1cnB2NXowOWh0MmtwamFleDJ5eHNrIn0.qraVk2myMWGOTy4OnS-txw`;
   
     try {
       const response = await fetch(url);
