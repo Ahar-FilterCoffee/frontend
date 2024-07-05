@@ -6,6 +6,7 @@ import cloudinaryUpload from '../../utils/cloudinary';
 import { setOrgName, setUserId } from '../../utils/handleCookie';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { getCoordinates } from '../../utils/geocoder';
 
 const SignUpScreen = () => {
     const navigate = useNavigate();
@@ -42,9 +43,10 @@ const SignUpScreen = () => {
     };
 
     const handleSubmit = async () => {
-
+        setIsLoading(true);
          // Add your sign-up logic here (e.g., API call)
         const organizationImageUrl = await cloudinaryUpload(imgFile);
+        const [locx,locy ] = await getCoordinates(location)
         // Navigate to the appropriate home page based on user type
         const payload = {
             username: userName,
@@ -52,12 +54,16 @@ const SignUpScreen = () => {
             orgName: newOrganization,
             pic: organizationImageUrl,
             location: location,
+            locx:locx,
+            locy:locy,
             userType: userType,
             numPeople: userType === 'Consumers' ? numPeople : null,
         };
+        console.log(payload)
         try {
-            setIsLoading(true);
+            
             const response = await axios.post(`${import.meta.env.VITE_BASE_URL}${import.meta.env.VITE_SIGNUP}`, payload);
+           
             if (response.data.message === "success") {
                 // Navigate to the appropriate home page based on user type
                 setUserName(userName);
@@ -77,9 +83,10 @@ const SignUpScreen = () => {
                 location.reload();
             }
         } catch (error) {
-            toast.error("Error creating account");
+            //toast.error("Error creating account");
             console.error('Error during signup:', error);
         }
+        setIsLoading(false);
     };
 
     return (
